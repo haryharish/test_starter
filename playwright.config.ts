@@ -1,4 +1,5 @@
 import { PlaywrightTestConfig, devices } from "@playwright/test";
+import { off } from "process";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -21,29 +22,29 @@ const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 3,
+  //retries: process.env.CI ? 2 : 3,
 
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  // reporter: 'html',
-  reporter: [
-    ["dot"],
-    ["line"],
-    ["html"],
-    [
-      "@estruyf/github-actions-reporter",
-      {
-        useDetails: true,
-        showError: true,
-      },
-    ],
-  ],
+   reporter: 'html',
+  //reporter: [
+    //["dot"],
+    //["line"],
+    //["html"],
+    //[
+      //"@estruyf/github-actions-reporter",
+      //{
+        //useDetails: true,
+        //showError: true,
+      //},
+    //],
+  //],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    screenshot: "on",
+    //screenshot: "on",
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
 
@@ -51,7 +52,9 @@ const config: PlaywrightTestConfig = {
     baseURL: "",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace : 'off',
+    headless : false,
+
   },
 
   /* Configure projects for major browsers */
@@ -60,8 +63,7 @@ const config: PlaywrightTestConfig = {
       name: "chromium",
 
       /* Project-specific settings. */
-      use: {
-        ...devices["Desktop Chrome"],
+      use: {...devices["Desktop Chrome"],
       },
     },
 
