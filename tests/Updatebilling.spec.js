@@ -16,6 +16,7 @@ test('update', async ({ page }) => {
 
     await page.getByRole('button', { name: 'Jayvion Simon' }).click();
     await page.getByRole('button', { name: 'Lucian Obrien 1147 Rohan' }).click();
+
     await expect(page.getByRole('button', { name: 'Lucian Obrien 1147 Rohan' })).toContainText("Lucian Obrien");
 
     await page.getByRole('button', { name: '**** **** ****' }).click()
