@@ -21,7 +21,7 @@ test ('update', async({page})=>{
    await page.getByRole('button', { name: '**** **** ****' }).click();
    await page.getByRole('heading', { name: '**** **** **** 1234' }).click();
    await expect (page.getByRole('heading', { name: '**** **** **** 1234' })).toContainText("**** **** **** 1234")
-   await page.pause();
+   
 
 })
 
