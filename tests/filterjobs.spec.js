@@ -23,13 +23,13 @@ test ('filterjob', async({page})=>{
     //clicked on closed icon of filter
     await page.locator("//div[contains(@role,'presentation')]//button[2]//*[name()='svg']").click();
 
-    //validation
+    // Validation
+    const jobElements = await page.locator("//span[@class='MuiTypography-root MuiTypography-caption MuiTypography-noWrap css-1a2bxk2'][normalize-space()='On Demand']");
+    const jobsCount = await jobElements.count();
+    expect(jobsCount).toBeGreaterThan(0);
 
-    const jobElements = await page.$$("(//div[contains(@class, 'job-item')])"); // Adjust selector based on actual element
-    const jobsCount = jobElements.length;
-
-    for (let i = 0; i < jobsCount; i++) {
-        const employmentType = await jobElements[i].locator("//span[@class='MuiTypography-root MuiTypography-caption MuiTypography-noWrap css-1a2bxk2'][normalize-space()='On Demand']").innerText(); // Adjust selector based on actual element
-        expect(employmentType).toBe('On Demand');
-    }
+    // Ensure there are no other job types
+    const otherJobElements = await page.locator("//div[contains(@class, 'job-item')]//span[@class='MuiTypography-root MuiTypography-caption MuiTypography-noWrap css-1a2bxk2']");
+    const otherJobsCount = await otherJobElements.count();
+    expect(otherJobsCount).toBe(0);
 })

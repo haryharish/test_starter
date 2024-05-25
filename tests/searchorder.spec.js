@@ -1,5 +1,6 @@
 import {test, expect} from '@playwright/test'
-import { copyFileSync } from 'fs';
+
+
 test ('searchorder', async({page})=>{
 
     await page.goto("https://minimals.cc/.");
@@ -12,7 +13,9 @@ test ('searchorder', async({page})=>{
     await page.locator("//span[contains(text(),'list')]").click();
     await page.getByPlaceholder('Search customer or order number...').pressSequentially("cor");
 
-    console.log = (await page.getByText("Cortez Herring").textContent());
-    await expect (page.getByText("Cortez Herring")).toContainText("Cortez Herring");
+    await page.waitForLoadState('networkidle');
+
+    const elementsCount = await page.locator('//*[contains(text(), "Cortez Herring")]').count();
+    expect(elementsCount).toBe(1);
 
 })
