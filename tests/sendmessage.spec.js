@@ -14,18 +14,18 @@ test ('filterjob', async({page})=>{
     //clicked on deja brady
     await page.locator("//h6[normalize-space()='Deja Brady']").click();
 
-    await page.pause();
+    
     //fill message
     await page.locator("//input[contains(@placeholder,'Type a message')]").fill("Hello, how are you?");
 
     await page.keyboard.press('Enter');
-    await page.pause();
     
 
     //await expect(page.locator("//div[contains(text(),'Hello, how are you?')]")).toBeVisible();
 
-    const sentMessage = await page.textContent("//div[contains(text(),'Hello, how are you?')]");  // Adjust selector based on your website
-    await expect(sentMessage).toContain('Hello, how are you?');
-    
+    await page.waitForSelector('div:has-text("Hello, how are you?")', { timeout: 10000 });
+// Validate that the message is sent and displayed
+const sentMessage = await page.textContent('div:has-text("Hello, how are you?")');
+await expect(sentMessage).toContain('Hello, how are you?');  
 
 })

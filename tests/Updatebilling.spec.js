@@ -21,7 +21,6 @@ test('update', async ({ page }) => {
     await page.getByRole('heading', { name: '**** **** **** 1234' }).click();
 
     await page.waitForLoadState('networkidle');
-    page.waitForTimeout(2000);
 
 
     // validation Name
